@@ -5,50 +5,56 @@ using System.Text;
 
 namespace B23_Ex04_Ronen_319047718_Ido_315942193
 {
-    interface ISubMenu
+    public interface ISubMenuItem
     {
         void ListSubMenu();
+        void AddSubMenuItemToSubMenu(string i_Prompt);
+        void AddFinalItemToSubMenu(string i_Prompt);
     }
 
-    interface IAction
+    public interface IFinalMenuItem
     {
         void MenuAction();
     }
 
     public class MenuItem
     {
-        private List<MenuItem> m_MenuItems;
-        private readonly List<string> m_Path;
-        private string m_Propmt;
-        private int m_ItemNum;
+        private readonly string m_Path;
 
-        public MenuItem(string i_Prompt, int i_ItemNum)
+        public string Path
+        {
+            get;
+        }
+        private readonly string m_Propmt;
+
+        public string Prompt
+        {
+            get;
+        }
+
+        private readonly int m_ItemNum;
+
+        public int ItemNum
+        {
+            get;
+        }
+
+        public MenuItem(string i_Prompt, int i_ItemNum, string i_ParentMenuItem)
         {
             m_Propmt = i_Prompt;
             m_ItemNum = i_ItemNum;
+            m_Path += string.Format("/{0}", i_ParentMenuItem);
         }
 
-        public void ListSubMenu()
+        public void PrintPath()
         {
-            foreach(string subPath in m_Path)
-            {
-                Console.Write(subPath + "/");
-            }
-            foreach(MenuItem item in m_MenuItems)
-            {
-                item.PrintItem();
-            }
+            Console.WriteLine(m_Path);
         }
 
         public void PrintItem()
         {
             string prompt = string.Format("{0}. {1}", m_ItemNum, m_Propmt);
             Console.WriteLine(prompt);
-        }
-
-        public void AddItem(MenuItem i_Item)
-        {
-            m_MenuItems.Add(i_Item);
         }
     }
 }

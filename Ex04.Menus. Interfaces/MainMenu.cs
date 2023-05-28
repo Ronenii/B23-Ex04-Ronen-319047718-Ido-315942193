@@ -5,11 +5,11 @@ namespace B23_Ex04_Ronen_319047718_Ido_315942193
 {
     public class MainMenu
     {
-        private MenuItem m_MainMenuItem;
+        private SubMenu m_MainMenu;
 
         public void Show()
         {
-            m_MainMenuItem.ListSubMenu();
+            m_MainMenu.ListSubMenu();
         }
     }
 }
