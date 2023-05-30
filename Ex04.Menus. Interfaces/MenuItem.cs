@@ -5,56 +5,36 @@ using System.Text;
 
 namespace B23_Ex04_Ronen_319047718_Ido_315942193
 {
-    public interface ISubMenuItem
-    {
-        void ListSubMenu();
-        void AddSubMenuItemToSubMenu(string i_Prompt);
-        void AddFinalItemToSubMenu(string i_Prompt);
-    }
-
-    public interface IFinalMenuItem
-    {
-        void MenuAction();
-    }
-
-    public class MenuItem
+    public abstract class MenuItem: IMenuItem
     {
         private readonly string m_Path;
+        public string Path { get; }
 
-        public string Path
+        private readonly string m_Title;
+
+        public string Title { get; }
+
+        private MenuItem m_Parent;
+        public MenuItem Parent
+        { get; }
+
+        public MenuItem(string i_Title, MenuItem i_Parent)
         {
-            get;
-        }
-        private readonly string m_Propmt;
-
-        public string Prompt
-        {
-            get;
-        }
-
-        private readonly int m_ItemNum;
-
-        public int ItemNum
-        {
-            get;
+            m_Title = i_Title;
+            m_Parent = i_Parent;
+            m_Path += string.Format("{0}->{1}", i_Parent.Path, i_Parent.Title );
         }
 
-        public MenuItem(string i_Prompt, int i_ItemNum, string i_ParentMenuItem)
+        public void PrintTitle()
         {
-            m_Propmt = i_Prompt;
-            m_ItemNum = i_ItemNum;
-            m_Path += string.Format("/{0}", i_ParentMenuItem);
+            Console.Write(m_Title);
         }
+
+        public abstract void Execute();
 
         public void PrintPath()
         {
             Console.WriteLine(m_Path);
-        }
-
-        public void PrintItem()
-        {
-            string prompt = string.Format("{0}. {1}", m_ItemNum, m_Propmt);
-            Console.WriteLine(prompt);
         }
     }
 }
