@@ -5,7 +5,8 @@ using System.Text;
 
 namespace B23_Ex04_Ronen_319047718_Ido_315942193
 {
-    public class IO
+    public interface IMenuObserver
     {
+        void Execute();
     }
 }
