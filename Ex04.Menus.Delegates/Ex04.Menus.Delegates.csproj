@@ -35,8 +35,8 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DelegateActionHandler.cs" />
     <Compile Include="DelegateActions.cs" />
-    <Compile Include="DelegateMainMenu.cs" />
     <Compile Include="DelegateMenuItem.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
