@@ -5,36 +5,62 @@ using System.Text;
 
 namespace B23_Ex04_Ronen_319047718_Ido_315942193
 {
-    public abstract class MenuItem: IMenuItem
+    public abstract class MenuItem : IMenuItem
     {
-        private readonly string m_Path;
-        public string Path { get; }
+        private readonly string r_Path;
+        public string Path
+        {
+            get
+            {
+                return r_Path;
+            }
+        }
 
-        private readonly string m_Title;
+        private readonly string r_Title;
 
-        public string Title { get; }
+        public string Title
+        {
+            get
+            {
+                return r_Title;
+            }
+        }
 
-        private MenuItem m_Parent;
+        private readonly MenuItem r_Parent;
         public MenuItem Parent
-        { get; }
+        {
+            get
+            {
+                return r_Parent;
+            }
+        }
 
         public MenuItem(string i_Title, MenuItem i_Parent)
         {
-            m_Title = i_Title;
-            m_Parent = i_Parent;
-            m_Path += string.Format("{0}->{1}", i_Parent.Path, i_Parent.Title );
+            r_Title = i_Title;
+            r_Parent = i_Parent;
+
+            // If the parent is nul lthis means we are in the main menu and it still doesn't have a relative path
+            if (i_Parent != null)
+            {
+                r_Path = string.Format("{0}->{1}", i_Parent.Path, i_Parent.Title);
+            }
+            else
+            {
+                r_Path = string.Empty;
+            }
         }
 
         public void PrintTitle()
         {
-            Console.Write(m_Title);
+            Console.WriteLine(r_Title);
         }
 
         public abstract void Execute();
 
         public void PrintPath()
         {
-            Console.WriteLine(m_Path);
+            Console.WriteLine(r_Path);
         }
     }
 }

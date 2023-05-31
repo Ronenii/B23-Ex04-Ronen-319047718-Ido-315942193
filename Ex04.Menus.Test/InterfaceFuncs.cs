@@ -10,7 +10,11 @@ namespace Ex04.Menus.Test
     {
         public void Execute()
         {
-            throw new NotImplementedException();
+            DateTime date = DateTime.Now;
+            Console.Clear();
+            Console.WriteLine("Current Date: " + date.ToShortDateString());
+            Console.WriteLine("Press any key to continue");
+            Console.ReadKey();
         }
     }
 
@@ -18,7 +22,11 @@ namespace Ex04.Menus.Test
     {
         public void Execute()
         {
-            throw new NotImplementedException();
+            DateTime date = DateTime.Now;
+            Console.Clear();
+            Console.WriteLine("Current Time: " + date.ToString("HH:mm:ss"));
+            Console.WriteLine("Press any key to continue");
+            Console.ReadKey();
         }
     }
 
@@ -26,7 +34,10 @@ namespace Ex04.Menus.Test
     {
         public void Execute()
         {
-            throw new NotImplementedException();
+            Console.Clear();
+            Console.WriteLine("Version: 23.2.4.9805");
+            Console.WriteLine("Press any key to continue");
+            Console.ReadKey();
         }
     }
 
@@ -34,7 +45,15 @@ namespace Ex04.Menus.Test
     {
         public void Execute()
         {
-            throw new NotImplementedException();
+            Console.Clear();
+            Console.Write("Please write a sentence: ");
+            string sentence = Console.ReadLine();
+                   string sentence = Console.ReadLine();
+            int spacesCount = sentence.Split(' ').Length - 1;
+
+            Console.WriteLine("Sentence contains {0} spaces", spaceCounter);
+            Console.WriteLine("Press any key to continue");
+            Console.ReadKey();
         }
     }
 }

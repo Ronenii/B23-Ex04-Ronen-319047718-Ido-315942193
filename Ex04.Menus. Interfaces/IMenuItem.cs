@@ -5,7 +5,7 @@ using System.Text;
 
 namespace B23_Ex04_Ronen_319047718_Ido_315942193
 {
-    interface IMenuItem: IMenuObserver
+    public interface IMenuItem: IMenuObserver
     {
         string Title { get; }
         string Path { get; }
