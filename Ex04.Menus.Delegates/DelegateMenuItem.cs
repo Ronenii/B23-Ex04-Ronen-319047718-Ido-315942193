@@ -7,38 +7,38 @@ namespace Ex04.Menus.Delegates
 {
     public class DelegateMenuItem
     {
-        private string m_Title;
+        private readonly string r_Title;
 
-        private DelegateMenuItem m_Parent;
+        private readonly DelegateMenuItem r_Parent;
 
-        private event Action<string> m_Action;
+        private readonly string r_Path;
 
         private List<DelegateMenuItem> m_SubMenuItems;
 
-        private string m_Path;
+        private event Action<string> m_Action;
 
-        public string Title { get => m_Title; set => m_Title = value; }
-        public DelegateMenuItem Parent { get => m_Parent; set => m_Parent = value; }
-        public List<DelegateMenuItem> SubMenuItems { get => m_SubMenuItems; set => m_SubMenuItems = value; }
-        public Action<string> Action { get => m_Action; set => m_Action = value; }
-        public string Path { get => m_Path; set => m_Path = value; }
+        public string Title { get => r_Title; }
+        public DelegateMenuItem Parent { get => r_Parent; }
+        public List<DelegateMenuItem> SubMenuItems { get => m_SubMenuItems; }
+        public Action<string> Action { get => m_Action; }
+        public string Path { get => r_Path; }
 
         public DelegateMenuItem(string i_Title, DelegateMenuItem i_Parent, Action<string> i_Action)
         {
-            m_Title = i_Title;
-            m_Parent = i_Parent;
+            r_Title = i_Title;
+            r_Parent = i_Parent;
             m_Action += i_Action;
             m_SubMenuItems = new List<DelegateMenuItem>();
-            m_Path = createCurrentPath();
+            r_Path = createCurrentPath();
         }
 
         public DelegateMenuItem(string i_Title, DelegateMenuItem i_Parent, List<DelegateMenuItem> i_SubMenuItems)
         {
-            m_Title = i_Title;
+            r_Title = i_Title;
             m_Action = null;
-            m_Parent = i_Parent;
+            r_Parent = i_Parent;
             m_SubMenuItems = i_SubMenuItems;
-            m_Path = createCurrentPath();
+            r_Path = createCurrentPath();
         }
 
         private string createCurrentPath()
@@ -46,9 +46,9 @@ namespace Ex04.Menus.Delegates
             string menuPath = "";
             if (!isMainMenu())
             {
-                menuPath += $"{m_Parent.Path} -> ";
+                menuPath += $"{r_Parent.Path} -> ";
             }
-            menuPath += m_Title;
+            menuPath += r_Title;
             return menuPath;
         }
 
@@ -60,7 +60,7 @@ namespace Ex04.Menus.Delegates
         public void Show()
         {
             Console.Clear();
-            Console.WriteLine(m_Path);
+            Console.WriteLine(r_Path);
             Console.WriteLine();
             Console.WriteLine($"---- {Title} ----");
             for (int i = 1; i <= m_SubMenuItems.Count; i++)
@@ -85,13 +85,13 @@ namespace Ex04.Menus.Delegates
 
         private bool isMainMenu()
         {
-            return m_Parent == null;
+            return r_Parent == null;
         }
 
         public void Execute()
         {
             Console.Clear();
-            m_Action?.Invoke(m_Path);
+            m_Action?.Invoke(r_Path);
         }
     }
 }

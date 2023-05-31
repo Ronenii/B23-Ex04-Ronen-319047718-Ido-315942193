@@ -10,10 +10,8 @@ namespace Ex04.Menus.Test
     {
         public void Execute()
         {
-            DateTime date = DateTime.Now;
             Console.WriteLine("Current Date: " + DateTime.Now.ToLongDateString());
-            Console.WriteLine("Press any key to continue");
-            Console.ReadKey();
+            Utils.HoldForUserKeyPress();
         }
     }
 
@@ -23,8 +21,7 @@ namespace Ex04.Menus.Test
         {
             DateTime date = DateTime.Now;
             Console.WriteLine("Current Time: " + date.ToString("HH:mm:ss"));
-            Console.WriteLine("Press any key to continue");
-            Console.ReadKey();
+            Utils.HoldForUserKeyPress();
         }
     }
 
@@ -33,8 +30,7 @@ namespace Ex04.Menus.Test
         public void Execute()
         {
             Console.WriteLine("Version: 23.2.4.9805");
-            Console.WriteLine("Press any key to continue");
-            Console.ReadKey();
+            Utils.HoldForUserKeyPress();
         }
     }
 
@@ -47,8 +43,17 @@ namespace Ex04.Menus.Test
             int spacesCounter = sentence.Split(' ').Length - 1;
 
             Console.WriteLine("Sentence contains {0} spaces", spacesCounter);
+            Utils.HoldForUserKeyPress();
+        }
+    }
+
+    public static class Utils
+    {
+        public static void HoldForUserKeyPress()
+        {
             Console.WriteLine("Press any key to continue");
             Console.ReadKey();
         }
     }
+
 }

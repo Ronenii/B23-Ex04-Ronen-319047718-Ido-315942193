@@ -31,14 +31,14 @@ namespace Ex04.Menus.Test
                 {
                     throw new ArgumentException("Input not listed on menu.");
                 }
-                if (userInput == 0)
+                if (isBackExitChoice(userInput))
                 {
                     goBack();
                 }
                 else
                 {
                     DelegateMenuItem nextMenuItem = m_ActiveDelegateMenuItem.SubMenuItems[userInput - 1];
-                    if (nextMenuItem.Action == null)
+                    if (isSubMenu(nextMenuItem))
                     {
                         m_ActiveDelegateMenuItem = nextMenuItem;
                     }
@@ -52,6 +52,15 @@ namespace Ex04.Menus.Test
             }
         }
 
+        private static bool isSubMenu(DelegateMenuItem nextMenuItem)
+        {
+            return nextMenuItem.Action == null;
+        }
+
+        private static bool isBackExitChoice(int userInput)
+        {
+            return userInput == 0;
+        }
 
         private static bool isInputInRange(int i_Input)
         {
