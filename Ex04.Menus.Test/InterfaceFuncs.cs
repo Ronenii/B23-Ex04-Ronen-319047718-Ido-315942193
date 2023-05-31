@@ -24,7 +24,7 @@ namespace Ex04.Menus.Test
         {
             DateTime date = DateTime.Now;
             Console.Clear();
-            Console.WriteLine("Current Date: " + date.ToString("HH:mm:ss"));
+            Console.WriteLine("Current Time: " + date.ToString("HH:mm:ss"));
             Console.WriteLine("Press any key to continue");
             Console.ReadKey();
         }
