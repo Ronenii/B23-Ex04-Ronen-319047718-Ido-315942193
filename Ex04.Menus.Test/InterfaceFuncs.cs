@@ -48,15 +48,8 @@ namespace Ex04.Menus.Test
             Console.Clear();
             Console.Write("Please write a sentence: ");
             string sentence = Console.ReadLine();
-            int spaceCounter = 0;
-
-            foreach(char c in sentence)
-            {
-                if(c.Equals(' '))
-                {
-                    spaceCounter++;
-                }
-            }
+                   string sentence = Console.ReadLine();
+            int spacesCount = sentence.Split(' ').Length - 1;
 
             Console.WriteLine("Sentence contains {0} spaces", spaceCounter);
             Console.WriteLine("Press any key to continue");
