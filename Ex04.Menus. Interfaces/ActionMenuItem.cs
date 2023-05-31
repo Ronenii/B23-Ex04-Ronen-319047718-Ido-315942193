@@ -5,7 +5,7 @@ using System.Text;
 
 namespace B23_Ex04_Ronen_319047718_Ido_315942193
 {
-    public class ActionMenuItem: MenuItem
+    public class ActionMenuItem : MenuItem
     {
         private readonly IMenuObserver r_Observer;
         public ActionMenuItem(string i_Title, MenuItem i_Parent, IMenuObserver i_MenuObserver)
@@ -17,8 +17,10 @@ namespace B23_Ex04_Ronen_319047718_Ido_315942193
         // Executes the action and returns to parent menu
         public override void Execute()
         {
-           r_Observer.Execute();
-           Parent.Execute();
+            Console.Clear();
+            PrintPath();
+            r_Observer.Execute();
+            Parent.Execute();
         }
     }
 }

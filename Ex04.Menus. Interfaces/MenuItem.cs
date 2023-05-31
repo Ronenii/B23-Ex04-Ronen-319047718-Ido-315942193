@@ -39,21 +39,12 @@ namespace B23_Ex04_Ronen_319047718_Ido_315942193
         {
             r_Title = i_Title;
             r_Parent = i_Parent;
-
-            // If the parent is nul lthis means we are in the main menu and it still doesn't have a relative path
-            if (i_Parent != null)
-            {
-                r_Path = string.Format("{0}->{1}", i_Parent.Path, i_Parent.Title);
-            }
-            else
-            {
-                r_Path = string.Empty;
-            }
+            r_Path = createCurrentPath();
         }
 
         public void PrintTitle()
         {
-            Console.WriteLine(r_Title);
+            Console.WriteLine($"---- {r_Title} ----");
         }
 
         public abstract void Execute();
@@ -61,6 +52,24 @@ namespace B23_Ex04_Ronen_319047718_Ido_315942193
         public void PrintPath()
         {
             Console.WriteLine(r_Path);
+            Console.WriteLine();
         }
+
+        private string createCurrentPath()
+        {
+            string menuPath = "";
+            if (!isMainMenu())
+            {
+                menuPath += $"{r_Parent.Path} -> ";
+            }
+            menuPath += r_Title;
+            return menuPath;
+        }
+
+        private bool isMainMenu()
+        {
+            return r_Parent == null;
+        }
+
     }
 }

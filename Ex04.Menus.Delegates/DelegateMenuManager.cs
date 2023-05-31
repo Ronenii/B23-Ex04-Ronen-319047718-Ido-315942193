@@ -19,12 +19,6 @@ namespace Ex04.Menus.Test
                     m_ActiveDelegateMenuItem.Execute();
                 }
             }
-            exitHandler();
-        }
-
-        private static void exitHandler()
-        {
-            Console.WriteLine("Thank you and goodbye!");
         }
 
         private static void updateMenuItemFromUser()

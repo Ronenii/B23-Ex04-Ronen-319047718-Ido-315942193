@@ -11,7 +11,7 @@ namespace Ex04.Menus.Delegates
 
         private DelegateMenuItem m_Parent;
 
-        private Action<string> m_Action;
+        private event Action<string> m_Action;
 
         private List<DelegateMenuItem> m_SubMenuItems;
 
@@ -27,9 +27,9 @@ namespace Ex04.Menus.Delegates
         {
             m_Title = i_Title;
             m_Parent = i_Parent;
-            m_Action = i_Action;
+            m_Action += i_Action;
             m_SubMenuItems = new List<DelegateMenuItem>();
-            m_Path = getPath();
+            m_Path = createCurrentPath();
         }
 
         public DelegateMenuItem(string i_Title, DelegateMenuItem i_Parent, List<DelegateMenuItem> i_SubMenuItems)
@@ -38,15 +38,15 @@ namespace Ex04.Menus.Delegates
             m_Action = null;
             m_Parent = i_Parent;
             m_SubMenuItems = i_SubMenuItems;
-            m_Path = getPath();
+            m_Path = createCurrentPath();
         }
 
-        private string getPath()
+        private string createCurrentPath()
         {
             string menuPath = "";
             if (!isMainMenu())
             {
-                menuPath += $"{m_Parent.getPath()} -> ";
+                menuPath += $"{m_Parent.Path} -> ";
             }
             menuPath += m_Title;
             return menuPath;
@@ -67,11 +67,11 @@ namespace Ex04.Menus.Delegates
             {
                 Console.WriteLine("{0}. {1}", i, m_SubMenuItems[i - 1].Title);
             }
-            printRelevantBackMessage();
+            printLastOption();
             Console.WriteLine();
         }
 
-        private void printRelevantBackMessage()
+        private void printLastOption()
         {
             if (isMainMenu())
             {

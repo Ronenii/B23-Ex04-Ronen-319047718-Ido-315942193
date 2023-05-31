@@ -1,6 +1,6 @@
-﻿using Ex04.Menus.Delegates;
+﻿using B23_Ex04_Ronen_319047718_Ido_315942193;
+using Ex04.Menus.Delegates;
 using System;
-using B23_Ex04_Ronen_319047718_Ido_315942193;
 using System.Collections.Generic;
 
 namespace Ex04.Menus.Test
@@ -10,47 +10,47 @@ namespace Ex04.Menus.Test
         public static void Main()
         {
             bool isExist = false;
+            while (!runMainManager(isExist));
+        }
 
-            while (!isExist)
+        private static bool runMainManager(bool isExist)
+        {
+            Console.Clear();
+            Console.WriteLine("Please choose the implementation: ");
+            Console.WriteLine("1. Delegate implementation");
+            Console.WriteLine("2. Interface implementation");
+            Console.WriteLine("0. Exit");
+            if (int.TryParse(Console.ReadLine(), out int userImplemetationSelection))
             {
-                Console.Clear();
-                Console.WriteLine("Please choose the implementation: ");
-                Console.WriteLine("1. Delegate implementation");
-                Console.WriteLine("2. Interface implementation");
-                Console.WriteLine("0. Exit");
-                if (int.TryParse(Console.ReadLine(), out int userImplemetationSelection))
+                if (userImplemetationSelection == 0)
                 {
-                    if (userImplemetationSelection == 0)
-                    {
-                        isExist = true;
-                        Console.WriteLine("Goodbye forever");
-                        Console.ReadKey();
-                    }
-                    else if (userImplemetationSelection == 1)
-                    {
-                        DelegateMenuManager.Run(InitDelegateMainMenu());
-                    }
-                    else if (userImplemetationSelection == 2)
-                    {
-                        InitInterfaceMainMenu(); // TODO export to handler class
-                    }
-                    else
-                    {
-                        Console.WriteLine("Input not listed on menu");
-                        Console.WriteLine("Press any key to continue");
-                        Console.ReadKey();
-                    }
+                    isExist = true;
+                    Console.WriteLine("Goodbye forever");
+                    Console.ReadKey();
+                }
+                else if (userImplemetationSelection == 1)
+                {
+                    DelegateMenuManager.Run(InitDelegateMainMenu());
+                }
+                else if (userImplemetationSelection == 2)
+                {
+                    InitInterfaceMainMenu().Execute(); // TODO export to handler class
                 }
                 else
                 {
-                    Console.WriteLine("Invalid input, must be a number");
+                    Console.WriteLine("Input not listed on menu");
                     Console.WriteLine("Press any key to continue");
                     Console.ReadKey();
                 }
-
+            }
+            else
+            {
+                Console.WriteLine("Invalid input, must be a number");
+                Console.WriteLine("Press any key to continue");
+                Console.ReadKey();
             }
 
-
+            return isExist;
         }
 
         public static SubMenuItem InitInterfaceMainMenu()
@@ -82,13 +82,13 @@ namespace Ex04.Menus.Test
 
         public static DelegateMenuItem InitDelegateMainMenu()
         {
-            DelegateMenuItem main = new DelegateMenuItem("Main", null, new List<DelegateMenuItem>());
-            DelegateMenuItem timeDateShow = new DelegateMenuItem("Time/Date Show", main, new List<DelegateMenuItem>());
-            DelegateMenuItem timeShow = new DelegateMenuItem("Time Show", timeDateShow, (path) => DelegateActions.ShowTime(path));
-            DelegateMenuItem dateShow = new DelegateMenuItem("Date Show", timeDateShow, (path) => DelegateActions.ShowDate(path));
-            timeDateShow.AddMenuItem(timeShow);
+            DelegateMenuItem main = new DelegateMenuItem("Main Menu", null, new List<DelegateMenuItem>());
+            DelegateMenuItem timeDateShow = new DelegateMenuItem("Show Date/Time", main, new List<DelegateMenuItem>());
+            DelegateMenuItem timeShow = new DelegateMenuItem("Show Time", timeDateShow, (path) => DelegateActions.ShowTime(path));
+            DelegateMenuItem dateShow = new DelegateMenuItem("Show Date", timeDateShow, (path) => DelegateActions.ShowDate(path));
             timeDateShow.AddMenuItem(dateShow);
-            DelegateMenuItem spaceAndVersionShow = new DelegateMenuItem("Spaces and Version", main, new List<DelegateMenuItem>());
+            timeDateShow.AddMenuItem(timeShow);
+            DelegateMenuItem spaceAndVersionShow = new DelegateMenuItem("Version and Spaces", main, new List<DelegateMenuItem>());
             DelegateMenuItem versionShow = new DelegateMenuItem("Show Version", spaceAndVersionShow, (path) => DelegateActions.ShowVersion(path));
             DelegateMenuItem spacesShow = new DelegateMenuItem("Count Spaces", spaceAndVersionShow, (path) => DelegateActions.CountSpaces(path));
             spaceAndVersionShow.AddMenuItem(versionShow);

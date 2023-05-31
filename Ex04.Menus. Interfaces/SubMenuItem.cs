@@ -5,18 +5,18 @@ using System.Text;
 
 namespace B23_Ex04_Ronen_319047718_Ido_315942193
 {
-    
+
     public class SubMenuItem : MenuItem
     {
         private const int k_GoBack = 0;
-        private readonly bool m_isMainMenu;
+        private readonly bool r_isMainMenu;
 
         private List<IMenuItem> m_SubMenuItems = new List<IMenuItem>();
 
         public SubMenuItem(string i_Title, MenuItem i_Parent, bool i_IsMainMenu)
             : base(i_Title, i_Parent)
         {
-            m_isMainMenu = i_IsMainMenu;
+            r_isMainMenu = i_IsMainMenu;
         }
 
         // A sub menu item can only display itself and ask user for input. This is it's Execute
@@ -26,7 +26,7 @@ namespace B23_Ex04_Ronen_319047718_Ido_315942193
             PrintSubMenu();
             int userChoice = getUserInput();
 
-            if(userChoice == k_GoBack)
+            if (userChoice == k_GoBack)
             {
                 goBack();
             }
@@ -39,13 +39,7 @@ namespace B23_Ex04_Ronen_319047718_Ido_315942193
         // If this is the main menu then display goodbye message and exit, else go back to parent menu
         private void goBack()
         {
-            if (m_isMainMenu)
-            {
-                Console.Clear();
-                Console.WriteLine("Thank you and goodbye!");
-                Console.ReadKey();
-            }
-            else
+            if (!r_isMainMenu)
             {
                 Parent.Execute();
             }
@@ -56,9 +50,9 @@ namespace B23_Ex04_Ronen_319047718_Ido_315942193
         {
             Console.Write("Enter your request: ");
 
-            if(int.TryParse(Console.ReadLine(), out int input))
+            if (int.TryParse(Console.ReadLine(), out int input))
             {
-                if(!isInputInRange(input))
+                if (!isInputInRange(input))
                 {
                     throw new ArgumentException("Input not listed on menu.");
                 }
@@ -80,26 +74,22 @@ namespace B23_Ex04_Ronen_319047718_Ido_315942193
         public void PrintSubMenu()
         {
             int numOfSubMenuItems = m_SubMenuItems.Count;
-            
-            //Prints the path of the menu only if we are not in the main menu
-            if(!Path.Equals(String.Empty))
-            {
-                PrintPath();
-                Console.WriteLine();
-            }
 
+            //Prints the path of the menu only if we are not in the main menu
+
+            PrintPath();
             PrintTitle();
             for (int i = 1; i <= numOfSubMenuItems; i++)
             {
                 Console.WriteLine("{0}. {1}", i, m_SubMenuItems[i - 1].Title);
             }
-
             printLastOption();
+            Console.WriteLine();
         }
 
         private void printLastOption()
         {
-            if (m_isMainMenu)
+            if (r_isMainMenu)
             {
                 Console.WriteLine("0. Exit");
             }
