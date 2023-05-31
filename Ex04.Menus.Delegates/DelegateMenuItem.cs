@@ -52,7 +52,7 @@ namespace Ex04.Menus.Delegates
             return menuPath;
         }
 
-        public void addMenuItem(DelegateMenuItem i_SubMenuItems)
+        public void AddMenuItem(DelegateMenuItem i_SubMenuItems)
         {
             m_SubMenuItems.Add(i_SubMenuItems);
         }

@@ -1,6 +1,7 @@
 ﻿using Ex04.Menus.Delegates;
 using System;
 using B23_Ex04_Ronen_319047718_Ido_315942193;
+using System.Collections.Generic;
 
 namespace Ex04.Menus.Test
 {
@@ -9,7 +10,6 @@ namespace Ex04.Menus.Test
         public static void Main()
         {
             bool isExist = false;
-            DelegateActionHandler delegateActionHandler = new DelegateActionHandler();
 
             while (!isExist)
             {
@@ -23,16 +23,16 @@ namespace Ex04.Menus.Test
                     if (userImplemetationSelection == 0)
                     {
                         isExist = true;
-                        Console.WriteLine("Goodbye for forever");
+                        Console.WriteLine("Goodbye forever");
                         Console.ReadKey();
                     }
                     else if (userImplemetationSelection == 1)
                     {
-                        delegateActionHandler.Run();
+                        DelegateMenuManager.Run(InitDelegateMainMenu());
                     }
                     else if (userImplemetationSelection == 2)
                     {
-                        initInterfaceMainMenu(); // TODO export to handler class
+                        InitInterfaceMainMenu(); // TODO export to handler class
                     }
                     else
                     {
@@ -53,7 +53,7 @@ namespace Ex04.Menus.Test
 
         }
 
-        private static void initInterfaceMainMenu()
+        public static SubMenuItem InitInterfaceMainMenu()
         {
             const bool v_IsMainMenu = true;
 
@@ -77,9 +77,25 @@ namespace Ex04.Menus.Test
             // Adding the sub menus to the main menu
             mainMenu.AddMenuItem(subItemShowDateTime);
             mainMenu.AddMenuItem(subItemVersionSpaces);
+            return mainMenu;
+        }
 
-            // Running the menu
-            mainMenu.Execute();
+        public static DelegateMenuItem InitDelegateMainMenu()
+        {
+            DelegateMenuItem main = new DelegateMenuItem("Main", null, new List<DelegateMenuItem>());
+            DelegateMenuItem timeDateShow = new DelegateMenuItem("Time/Date Show", main, new List<DelegateMenuItem>());
+            DelegateMenuItem timeShow = new DelegateMenuItem("Time Show", timeDateShow, (path) => DelegateActions.ShowTime(path));
+            DelegateMenuItem dateShow = new DelegateMenuItem("Date Show", timeDateShow, (path) => DelegateActions.ShowDate(path));
+            timeDateShow.AddMenuItem(timeShow);
+            timeDateShow.AddMenuItem(dateShow);
+            DelegateMenuItem spaceAndVersionShow = new DelegateMenuItem("Spaces and Version", main, new List<DelegateMenuItem>());
+            DelegateMenuItem versionShow = new DelegateMenuItem("Show Version", spaceAndVersionShow, (path) => DelegateActions.ShowVersion(path));
+            DelegateMenuItem spacesShow = new DelegateMenuItem("Count Spaces", spaceAndVersionShow, (path) => DelegateActions.CountSpaces(path));
+            spaceAndVersionShow.AddMenuItem(versionShow);
+            spaceAndVersionShow.AddMenuItem(spacesShow);
+            main.AddMenuItem(timeDateShow);
+            main.AddMenuItem(spaceAndVersionShow);
+            return main;
         }
     }
 }

@@ -1,36 +1,15 @@
 ﻿using Ex04.Menus.Delegates;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Ex04.Menus.Test
 {
-    public class DelegateActionHandler
+    public class DelegateMenuManager
     {
-        private DelegateMenuItem m_ActiveDelegateMenuItem = null;
-        private void initMenu()
-        {
-            DelegateMenuItem main = new DelegateMenuItem("Main", null, new List<DelegateMenuItem>());
-            DelegateMenuItem timeDateShow = new DelegateMenuItem("Time/Date Show", main, new List<DelegateMenuItem>());
-            DelegateMenuItem timeShow = new DelegateMenuItem("Time Show", timeDateShow, (path) => DelegateActions.ShowTime(path));
-            DelegateMenuItem dateShow = new DelegateMenuItem("Date Show", timeDateShow, (path) => DelegateActions.ShowDate(path));
-            timeDateShow.addMenuItem(timeShow);
-            timeDateShow.addMenuItem(dateShow);
-            DelegateMenuItem spaceAndVersionShow = new DelegateMenuItem("Spaces and Version", main, new List<DelegateMenuItem>());
-            DelegateMenuItem versionShow = new DelegateMenuItem("Show Version", spaceAndVersionShow, (path) => DelegateActions.ShowVersion(path));
-            DelegateMenuItem spacesShow = new DelegateMenuItem("Count Spaces", spaceAndVersionShow, (path) => DelegateActions.CountSpaces(path));
-            spaceAndVersionShow.addMenuItem(versionShow);
-            spaceAndVersionShow.addMenuItem(spacesShow);
-            main.addMenuItem(timeDateShow);
-            main.addMenuItem(spaceAndVersionShow);
-            m_ActiveDelegateMenuItem = main;
-        }
+        private static DelegateMenuItem m_ActiveDelegateMenuItem = null;
 
-
-        public void Run()
+        public static void Run(DelegateMenuItem i_DelegateMenu)
         {
-            initMenu();
+            m_ActiveDelegateMenuItem = i_DelegateMenu;
             while (m_ActiveDelegateMenuItem != null)
             {
                 m_ActiveDelegateMenuItem.Show();
@@ -48,7 +27,7 @@ namespace Ex04.Menus.Test
             Console.WriteLine("Thank you and goodbye!");
         }
 
-        private void updateMenuItemFromUser()
+        private static void updateMenuItemFromUser()
         {
             Console.Write("Enter your request: ");
             if (int.TryParse(Console.ReadLine(), out int userInput))
@@ -80,13 +59,13 @@ namespace Ex04.Menus.Test
         }
 
 
-        private bool isInputInRange(int i_Input)
+        private static bool isInputInRange(int i_Input)
         {
 
             return (i_Input >= 0 && i_Input <= m_ActiveDelegateMenuItem.SubMenuItems.Count);
         }
 
-        private void goBack()
+        private static void goBack()
         {
             m_ActiveDelegateMenuItem = m_ActiveDelegateMenuItem.Parent;
         }
