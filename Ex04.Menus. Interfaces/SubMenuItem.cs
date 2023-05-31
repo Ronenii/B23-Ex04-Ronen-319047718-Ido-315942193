@@ -8,7 +8,6 @@ namespace B23_Ex04_Ronen_319047718_Ido_315942193
     
     public class SubMenuItem : MenuItem
     {
-        private const bool v_IsNotMainMenu = false;
         private const int k_GoBack = 0;
         private readonly bool m_isMainMenu;
 
