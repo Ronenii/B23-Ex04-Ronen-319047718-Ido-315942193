@@ -8,6 +8,53 @@ namespace Ex04.Menus.Test
     {
         public static void Main()
         {
+            bool isExist = false;
+            DelegateActionHandler delegateActionHandler = new DelegateActionHandler();
+
+            while (!isExist)
+            {
+                Console.Clear();
+                Console.WriteLine("Please choose the implementation: ");
+                Console.WriteLine("1. Delegate implementation");
+                Console.WriteLine("2. Interface implementation");
+                Console.WriteLine("0. Exit");
+                if (int.TryParse(Console.ReadLine(), out int userImplemetationSelection))
+                {
+                    if (userImplemetationSelection == 0)
+                    {
+                        isExist = true;
+                        Console.WriteLine("Goodbye for forever");
+                        Console.ReadKey();
+                    }
+                    else if (userImplemetationSelection == 1)
+                    {
+                        delegateActionHandler.Run();
+                    }
+                    else if (userImplemetationSelection == 2)
+                    {
+                        initInterfaceMainMenu(); // TODO export to handler class
+                    }
+                    else
+                    {
+                        Console.WriteLine("Input not listed on menu");
+                        Console.WriteLine("Press any key to continue");
+                        Console.ReadKey();
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input, must be a number");
+                    Console.WriteLine("Press any key to continue");
+                    Console.ReadKey();
+                }
+
+            }
+
+
+        }
+
+        private static void initInterfaceMainMenu()
+        {
             const bool v_IsMainMenu = true;
 
             // Init main menu
