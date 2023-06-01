@@ -9,54 +9,22 @@ namespace Ex04.Menus.Test
     {
         public static void Main()
         {
-            bool isExist = false;
-            while (!runMainManager(isExist));
+            runMainManager();
         }
 
-        private static bool runMainManager(bool isExist)
+        private static void runMainManager()
         {
+            DelegateMenuManager.Run(InitMainMenu());
             Console.Clear();
-            Console.WriteLine("Please choose the implementation: ");
-            Console.WriteLine("1. Delegate implementation");
-            Console.WriteLine("2. Interface implementation");
-            Console.WriteLine("0. Exit");
-            if (int.TryParse(Console.ReadLine(), out int userImplemetationSelection))
-            {
-                if (userImplemetationSelection == 0)
-                {
-                    isExist = true;
-                    Console.WriteLine("Goodbye forever");
-                    Console.ReadKey();
-                }
-                else if (userImplemetationSelection == 1)
-                {
-                    DelegateMenuManager.Run(InitDelegateMainMenu());
-                }
-                else if (userImplemetationSelection == 2)
-                {
-                    InterfaceMenuManager.Run(InitInterfaceMainMenu());
-                }
-                else
-                {
-                    Console.WriteLine("Input not listed on menu");
-                    Console.WriteLine("Press any key to continue");
-                    Console.ReadKey();
-                }
-            }
-            else
-            {
-                Console.WriteLine("Invalid input, must be a number");
-                Console.WriteLine("Press any key to continue");
-                Console.ReadKey();
-            }
+            Console.WriteLine("Goodbye forever");
+            Console.ReadKey();
 
-            return isExist;
         }
 
         public static SubMenuItem InitInterfaceMainMenu()
         {
             // Init main menu
-            SubMenuItem mainMenu = new SubMenuItem("Main Menu", null);
+            SubMenuItem mainMenu = new SubMenuItem("Iterface Main Menu", null);
 
             // Init main menu option 1 (sub menu of show date and show time)
             SubMenuItem subItemShowDateTime = new SubMenuItem("Show Date/Time", mainMenu);
@@ -80,7 +48,7 @@ namespace Ex04.Menus.Test
 
         public static DelegateMenuItem InitDelegateMainMenu()
         {
-            DelegateMenuItem main = new DelegateMenuItem("Main Menu", null, new List<DelegateMenuItem>());
+            DelegateMenuItem main = new DelegateMenuItem("Delegate Main Menu", null, new List<DelegateMenuItem>());
             DelegateMenuItem timeDateShow = new DelegateMenuItem("Show Date/Time", main, new List<DelegateMenuItem>());
             DelegateMenuItem timeShow = new DelegateMenuItem("Show Time", timeDateShow, (path) => DelegateActions.ShowTime(path));
             DelegateMenuItem dateShow = new DelegateMenuItem("Show Date", timeDateShow, (path) => DelegateActions.ShowDate(path));
@@ -93,6 +61,17 @@ namespace Ex04.Menus.Test
             spaceAndVersionShow.AddMenuItem(spacesShow);
             main.AddMenuItem(timeDateShow);
             main.AddMenuItem(spaceAndVersionShow);
+            return main;
+        }
+
+
+        public static DelegateMenuItem InitMainMenu()
+        {
+            DelegateMenuItem main = new DelegateMenuItem("Main Menu", null, new List<DelegateMenuItem>());
+            DelegateMenuItem delegateMenu = new DelegateMenuItem("Delegate Implematation", main, (path) => DelegateMenuManager.Run(InitDelegateMainMenu()));
+            DelegateMenuItem interfaceMenu = new DelegateMenuItem("Interface Implematation", main, (path) => InterfaceMenuManager.Run(InitInterfaceMainMenu()));
+            main.AddMenuItem(delegateMenu);
+            main.AddMenuItem(interfaceMenu);
             return main;
         }
     }
