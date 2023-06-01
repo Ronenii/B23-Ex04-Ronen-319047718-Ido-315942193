@@ -26,19 +26,22 @@ namespace B23_Ex04_Ronen_319047718_Ido_315942193
             }
         }
 
-        private readonly MenuItem r_Parent;
+        private MenuItem m_Parent = null;
         public MenuItem Parent
         {
             get
             {
-                return r_Parent;
+                return m_Parent;
+            }
+            set
+            {
+                m_Parent = value;
             }
         }
 
-        public MenuItem(string i_Title, MenuItem i_Parent)
+        public MenuItem(string i_Title)
         {
             r_Title = i_Title;
-            r_Parent = i_Parent;
             r_Path = createCurrentPath();
         }
 
@@ -60,7 +63,7 @@ namespace B23_Ex04_Ronen_319047718_Ido_315942193
             string menuPath = "";
             if (!IsMainMenu())
             {
-                menuPath += $"{r_Parent.Path} -> ";
+                menuPath += $"{m_Parent.Path} -> ";
             }
             menuPath += r_Title;
             return menuPath;
@@ -68,7 +71,7 @@ namespace B23_Ex04_Ronen_319047718_Ido_315942193
 
         public bool IsMainMenu()
         {
-            return r_Parent == null;
+            return m_Parent == null;
         }
 
     }
