@@ -13,7 +13,14 @@ namespace Ex04.Menus.Test
             while (m_ActiveDelegateMenuItem != null)
             {
                 m_ActiveDelegateMenuItem.Show();
-                updateMenuItemFromUser();
+                try
+                {
+                    updateMenuItemFromUser();
+                }
+                catch(Exception e)
+                {
+                    printErrorMessage(e);
+                }
                 if (m_ActiveDelegateMenuItem != null)
                 {
                     m_ActiveDelegateMenuItem.Execute();
@@ -62,6 +69,18 @@ namespace Ex04.Menus.Test
         private static void goBack()
         {
             m_ActiveDelegateMenuItem = m_ActiveDelegateMenuItem.Parent;
+        }
+
+        private static void printErrorMessage(Exception i_Exception)
+        {
+            Console.WriteLine("Error: {0}", i_Exception.Message);
+            holdForUserAction();
+        }
+
+        private static void holdForUserAction()
+        {
+            Console.WriteLine("Press any key to continue");
+            Console.ReadKey();
         }
     }
 }

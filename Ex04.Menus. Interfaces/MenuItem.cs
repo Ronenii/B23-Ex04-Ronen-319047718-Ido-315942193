@@ -5,7 +5,7 @@ using System.Text;
 
 namespace B23_Ex04_Ronen_319047718_Ido_315942193
 {
-    public abstract class MenuItem : IMenuItem
+    public abstract class MenuItem: IMenuObserver
     {
         private readonly string r_Path;
         public string Path
@@ -58,7 +58,7 @@ namespace B23_Ex04_Ronen_319047718_Ido_315942193
         private string createCurrentPath()
         {
             string menuPath = "";
-            if (!isMainMenu())
+            if (!IsMainMenu())
             {
                 menuPath += $"{r_Parent.Path} -> ";
             }
@@ -66,7 +66,7 @@ namespace B23_Ex04_Ronen_319047718_Ido_315942193
             return menuPath;
         }
 
-        private bool isMainMenu()
+        public bool IsMainMenu()
         {
             return r_Parent == null;
         }

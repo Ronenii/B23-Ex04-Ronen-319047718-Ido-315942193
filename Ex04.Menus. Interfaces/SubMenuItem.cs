@@ -8,9 +8,14 @@ namespace B23_Ex04_Ronen_319047718_Ido_315942193
 
     public class SubMenuItem : MenuItem
     {
-        private const int k_GoBack = 0;
-
-        private List<IMenuItem> m_SubMenuItems = new List<IMenuItem>();
+        private List<MenuItem> m_SubMenuItems = new List<MenuItem>();
+        public List<MenuItem> MenuItems
+        {
+            get
+            {
+                return m_SubMenuItems;
+            }
+        }
 
         public SubMenuItem(string i_Title, MenuItem i_Parent)
             : base(i_Title, i_Parent)
@@ -22,31 +27,6 @@ namespace B23_Ex04_Ronen_319047718_Ido_315942193
         {
             Console.Clear();
             PrintSubMenu();
-        }
-
-        public bool IsMainMenu()
-        {
-            return Parent == null;
-        }
-
-        // Prompts the user to enter a request and validates it, returns said request if valid
-        private int getUserInput()
-        {
-            Console.Write("Enter your request: ");
-
-            if (int.TryParse(Console.ReadLine(), out int input))
-            {
-                if (!isInputInRange(input))
-                {
-                    throw new ArgumentException("Input not listed on menu.");
-                }
-            }
-            else
-            {
-                throw new FormatException("Invalid input, must be a number.");
-            }
-
-            return input;
         }
 
         // Checks if input is withing the acceptable range of options in the menu
@@ -73,7 +53,7 @@ namespace B23_Ex04_Ronen_319047718_Ido_315942193
 
         private void printLastOption()
         {
-            if (r_isMainMenu)
+            if (IsMainMenu())
             {
                 Console.WriteLine("0. Exit");
             }
@@ -83,7 +63,7 @@ namespace B23_Ex04_Ronen_319047718_Ido_315942193
             }
         }
 
-        public void AddMenuItem(IMenuItem i_MenuItem)
+        public void AddMenuItem(MenuItem i_MenuItem)
         {
             m_SubMenuItems.Add(i_MenuItem);
         }
