@@ -10,6 +10,7 @@ namespace B23_Ex04_Ronen_319047718_Ido_315942193
         private const int k_GoBack = 0;
         private static MenuItem m_ActiveMenuItem = null;
 
+        // Runs the given interface Menu
         public static void Run(MenuItem i_Menu)
         {
             m_ActiveMenuItem = i_Menu;
@@ -31,6 +32,7 @@ namespace B23_Ex04_Ronen_319047718_Ido_315942193
             }
         }
 
+        // Updates the current active menu item based on valid user input. Otherwise throws exception 
         private static void updateMenuItemFromUser()
         {
             Console.Write("Enter your request: ");
@@ -62,7 +64,7 @@ namespace B23_Ex04_Ronen_319047718_Ido_315942193
             }
         }
 
-
+        // Checks if the user input is in the range of the sub menu items
         private static bool isInputInRange(int i_Input)
         {
 

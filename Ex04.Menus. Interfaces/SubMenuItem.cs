@@ -51,6 +51,7 @@ namespace B23_Ex04_Ronen_319047718_Ido_315942193
             Console.WriteLine();
         }
 
+        // Prints out the last available option (op 0) based on if its a main menu or not
         private void printLastOption()
         {
             if (IsMainMenu())
