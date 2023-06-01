@@ -9,14 +9,12 @@ namespace B23_Ex04_Ronen_319047718_Ido_315942193
     public class SubMenuItem : MenuItem
     {
         private const int k_GoBack = 0;
-        private readonly bool r_isMainMenu;
 
         private List<IMenuItem> m_SubMenuItems = new List<IMenuItem>();
 
-        public SubMenuItem(string i_Title, MenuItem i_Parent, bool i_IsMainMenu)
+        public SubMenuItem(string i_Title, MenuItem i_Parent)
             : base(i_Title, i_Parent)
         {
-            r_isMainMenu = i_IsMainMenu;
         }
 
         // A sub menu item can only display itself and ask user for input. This is it's Execute
@@ -24,25 +22,11 @@ namespace B23_Ex04_Ronen_319047718_Ido_315942193
         {
             Console.Clear();
             PrintSubMenu();
-            int userChoice = getUserInput();
-
-            if (userChoice == k_GoBack)
-            {
-                goBack();
-            }
-            else
-            {
-                m_SubMenuItems[userChoice - 1].Execute();
-            }
         }
 
-        // If this is the main menu then display goodbye message and exit, else go back to parent menu
-        private void goBack()
+        public bool IsMainMenu()
         {
-            if (!r_isMainMenu)
-            {
-                Parent.Execute();
-            }
+            return Parent == null;
         }
 
         // Prompts the user to enter a request and validates it, returns said request if valid
