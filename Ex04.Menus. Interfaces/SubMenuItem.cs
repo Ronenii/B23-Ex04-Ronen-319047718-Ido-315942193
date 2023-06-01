@@ -8,15 +8,18 @@ namespace B23_Ex04_Ronen_319047718_Ido_315942193
 
     public class SubMenuItem : MenuItem
     {
-        private const int k_GoBack = 0;
-        private readonly bool r_isMainMenu;
+        private List<MenuItem> m_SubMenuItems = new List<MenuItem>();
+        public List<MenuItem> MenuItems
+        {
+            get
+            {
+                return m_SubMenuItems;
+            }
+        }
 
-        private List<IMenuItem> m_SubMenuItems = new List<IMenuItem>();
-
-        public SubMenuItem(string i_Title, MenuItem i_Parent, bool i_IsMainMenu)
+        public SubMenuItem(string i_Title, MenuItem i_Parent)
             : base(i_Title, i_Parent)
         {
-            r_isMainMenu = i_IsMainMenu;
         }
 
         // A sub menu item can only display itself and ask user for input. This is it's Execute
@@ -24,45 +27,6 @@ namespace B23_Ex04_Ronen_319047718_Ido_315942193
         {
             Console.Clear();
             PrintSubMenu();
-            int userChoice = getUserInput();
-
-            if (userChoice == k_GoBack)
-            {
-                goBack();
-            }
-            else
-            {
-                m_SubMenuItems[userChoice - 1].Execute();
-            }
-        }
-
-        // If this is the main menu then display goodbye message and exit, else go back to parent menu
-        private void goBack()
-        {
-            if (!r_isMainMenu)
-            {
-                Parent.Execute();
-            }
-        }
-
-        // Prompts the user to enter a request and validates it, returns said request if valid
-        private int getUserInput()
-        {
-            Console.Write("Enter your request: ");
-
-            if (int.TryParse(Console.ReadLine(), out int input))
-            {
-                if (!isInputInRange(input))
-                {
-                    throw new ArgumentException("Input not listed on menu.");
-                }
-            }
-            else
-            {
-                throw new FormatException("Invalid input, must be a number.");
-            }
-
-            return input;
         }
 
         // Checks if input is withing the acceptable range of options in the menu
@@ -87,9 +51,10 @@ namespace B23_Ex04_Ronen_319047718_Ido_315942193
             Console.WriteLine();
         }
 
+        // Prints out the last available option (op 0) based on if its a main menu or not
         private void printLastOption()
         {
-            if (r_isMainMenu)
+            if (IsMainMenu())
             {
                 Console.WriteLine("0. Exit");
             }
@@ -99,7 +64,7 @@ namespace B23_Ex04_Ronen_319047718_Ido_315942193
             }
         }
 
-        public void AddMenuItem(IMenuItem i_MenuItem)
+        public void AddMenuItem(MenuItem i_MenuItem)
         {
             m_SubMenuItems.Add(i_MenuItem);
         }

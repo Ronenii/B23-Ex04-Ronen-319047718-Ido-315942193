@@ -1,33 +1,38 @@
-﻿using Ex04.Menus.Delegates;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace Ex04.Menus.Test
+namespace B23_Ex04_Ronen_319047718_Ido_315942193
 {
-    public class DelegateMenuManager
+    public static class InterfaceMenuManager
     {
-        private static DelegateMenuItem m_ActiveDelegateMenuItem = null;
+        private const int k_GoBack = 0;
+        private static MenuItem m_ActiveMenuItem = null;
 
-        public static void Run(DelegateMenuItem i_DelegateMenu)
+        // Runs the given interface Menu
+        public static void Run(MenuItem i_Menu)
         {
-            m_ActiveDelegateMenuItem = i_DelegateMenu;
-            while (m_ActiveDelegateMenuItem != null)
+            m_ActiveMenuItem = i_Menu;
+            while (m_ActiveMenuItem != null)
             {
-                m_ActiveDelegateMenuItem.Show();
+                m_ActiveMenuItem.Execute();
                 try
                 {
                     updateMenuItemFromUser();
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     printErrorMessage(e);
                 }
-                if (m_ActiveDelegateMenuItem != null)
+                if (m_ActiveMenuItem != null)
                 {
-                    m_ActiveDelegateMenuItem.Execute();
+                    m_ActiveMenuItem.Execute();
                 }
             }
         }
 
+        // Updates the current active menu item based on valid user input. Otherwise throws exception 
         private static void updateMenuItemFromUser()
         {
             Console.Write("Enter your request: ");
@@ -38,51 +43,42 @@ namespace Ex04.Menus.Test
                 {
                     throw new ArgumentException("Input not listed on menu.");
                 }
-                if (isBackExitChoice(userInput))
+                else if (userInput == k_GoBack)
                 {
                     goBack();
                 }
                 else
                 {
-                    DelegateMenuItem nextMenuItem = m_ActiveDelegateMenuItem.SubMenuItems[userInput - 1];
-                    if (isSubMenu(nextMenuItem))
+                    MenuItem nextMenuItem = (m_ActiveMenuItem as SubMenuItem).MenuItems[userInput - 1];
+                    if (nextMenuItem is SubMenuItem)
                     {
-                        m_ActiveDelegateMenuItem = nextMenuItem;
+                        m_ActiveMenuItem = nextMenuItem;
                     }
+
                     nextMenuItem.Execute();
                 }
             }
-
             else
             {
                 throw new FormatException("Invalid input, must be a number.");
             }
         }
 
-        private static bool isSubMenu(DelegateMenuItem nextMenuItem)
-        {
-            return nextMenuItem.Action == null;
-        }
-
-        private static bool isBackExitChoice(int userInput)
-        {
-            return userInput == 0;
-        }
-
+        // Checks if the user input is in the range of the sub menu items
         private static bool isInputInRange(int i_Input)
         {
 
-            return (i_Input >= 0 && i_Input <= m_ActiveDelegateMenuItem.SubMenuItems.Count);
+            return (i_Input >= 0 && i_Input <= (m_ActiveMenuItem as SubMenuItem).MenuItems.Count);
         }
 
         private static void goBack()
         {
-            m_ActiveDelegateMenuItem = m_ActiveDelegateMenuItem.Parent;
+            m_ActiveMenuItem = m_ActiveMenuItem.Parent;
         }
 
         private static void printErrorMessage(Exception i_Exception)
         {
-            Console.WriteLine("Error: {0}", i_Exception.Message);
+            Console.WriteLine("Error: {0}", i_Exception.Message);      
             holdForUserAction();
         }
 

@@ -34,7 +34,7 @@ namespace Ex04.Menus.Test
                 }
                 else if (userImplemetationSelection == 2)
                 {
-                    InitInterfaceMainMenu().Execute(); // TODO export to handler class
+                    InterfaceMenuManager.Run(InitInterfaceMainMenu());
                 }
                 else
                 {
@@ -55,20 +55,18 @@ namespace Ex04.Menus.Test
 
         public static SubMenuItem InitInterfaceMainMenu()
         {
-            const bool v_IsMainMenu = true;
-
             // Init main menu
-            SubMenuItem mainMenu = new SubMenuItem("Main Menu", null, v_IsMainMenu);
+            SubMenuItem mainMenu = new SubMenuItem("Main Menu", null);
 
             // Init main menu option 1 (sub menu of show date and show time)
-            SubMenuItem subItemShowDateTime = new SubMenuItem("Show Date/Time", mainMenu, !v_IsMainMenu);
+            SubMenuItem subItemShowDateTime = new SubMenuItem("Show Date/Time", mainMenu);
             ActionMenuItem actionItemShowDate = new ActionMenuItem("Show Date", subItemShowDateTime, new ShowDate());
             ActionMenuItem actionItemShowTime = new ActionMenuItem("Show Time", subItemShowDateTime, new ShowTime());
             subItemShowDateTime.AddMenuItem(actionItemShowDate);
             subItemShowDateTime.AddMenuItem(actionItemShowTime);
 
             // Init main menu option 2 (sub menu of show version and count spaces)
-            SubMenuItem subItemVersionSpaces = new SubMenuItem("Version and Spaces", mainMenu, !v_IsMainMenu);
+            SubMenuItem subItemVersionSpaces = new SubMenuItem("Version and Spaces", mainMenu);
             ActionMenuItem actionItemShowVersion = new ActionMenuItem("Show Version", subItemVersionSpaces, new ShowVersion());
             ActionMenuItem actionItemCountSpaces = new ActionMenuItem("Count Spaces", subItemVersionSpaces, new CountSpaces());
             subItemVersionSpaces.AddMenuItem(actionItemShowVersion);
