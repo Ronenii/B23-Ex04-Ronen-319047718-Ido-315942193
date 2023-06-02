@@ -7,15 +7,6 @@ namespace B23_Ex04_Ronen_319047718_Ido_315942193
 {
     public abstract class MenuItem: IMenuObserver
     {
-        private readonly string r_Path;
-        public string Path
-        {
-            get
-            {
-                return r_Path;
-            }
-        }
-
         private readonly string r_Title;
 
         public string Title
@@ -42,7 +33,6 @@ namespace B23_Ex04_Ronen_319047718_Ido_315942193
         public MenuItem(string i_Title)
         {
             r_Title = i_Title;
-            r_Path = createCurrentPath();
         }
 
         public void PrintTitle()
@@ -54,19 +44,23 @@ namespace B23_Ex04_Ronen_319047718_Ido_315942193
 
         public void PrintPath()
         {
-            Console.WriteLine(r_Path);
+            Console.WriteLine(getPath());
             Console.WriteLine();
         }
 
-        private string createCurrentPath()
+        private string getPath()
         {
-            string menuPath = "";
-            if (!IsMainMenu())
+            string path = "";
+            if(IsMainMenu())
             {
-                menuPath += $"{m_Parent.Path} -> ";
+                path += Title;
             }
-            menuPath += r_Title;
-            return menuPath;
+            else
+            {
+                path += String.Format("{0}->{1}", Parent.getPath(), Title);
+            }
+
+            return path;
         }
 
         public bool IsMainMenu()
