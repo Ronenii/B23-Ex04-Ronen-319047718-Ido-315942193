@@ -46,7 +46,7 @@ namespace Ex04.Menus.Delegates
             return menuPath;
         }
 
-        //Add new subMenu ke
+        //Add new subMenu to the main menu
         public void AddMenuItem(DelegateMenuItem i_SubMenuItems)
         {
             i_SubMenuItems.Parent = this;
