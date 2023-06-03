@@ -57,7 +57,7 @@ namespace B23_Ex04_Ronen_319047718_Ido_315942193
             }
             else
             {
-                path += String.Format("{0}->{1}", Parent.getPath(), Title);
+                path += String.Format("{0} -> {1}", Parent.getPath(), Title);
             }
 
             return path;

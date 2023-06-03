@@ -33,6 +33,7 @@ namespace Ex04.Menus.Delegates
             m_SubMenuItems = new List<DelegateMenuItem>();
         }
 
+        //Print the path of the current menu
         private string createCurrentPath()
         {
             string menuPath = "";
@@ -45,12 +46,14 @@ namespace Ex04.Menus.Delegates
             return menuPath;
         }
 
+        //Add new subMenu ke
         public void AddMenuItem(DelegateMenuItem i_SubMenuItems)
         {
             i_SubMenuItems.Parent = this;
             m_SubMenuItems.Add(i_SubMenuItems);
         }
 
+        //Print the menu
         public void Show()
         {
             Console.Clear();
@@ -67,6 +70,7 @@ namespace Ex04.Menus.Delegates
             Console.WriteLine();
         }
 
+        // Prints out the last available option (op 0) based on if its a main menu or not
         private void printLastOption()
         {
             if (isMainMenu())
@@ -79,6 +83,7 @@ namespace Ex04.Menus.Delegates
             }
         }
 
+        //Validate there isn't parent page 
         private bool isMainMenu()
         {
             return m_Parent == null;

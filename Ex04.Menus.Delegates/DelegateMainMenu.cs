@@ -19,6 +19,7 @@ namespace Ex04.Menus.Delegates
             m_MainMenuItem.AddMenuItem(i_SubMenuItems);
         }
 
+        // Main menu loop
         public void Run()
         {
             while (m_MainMenuItem != null)
@@ -40,6 +41,7 @@ namespace Ex04.Menus.Delegates
             }
         }
 
+        // Updates the current active menu item based on valid user input. Otherwise throws exception 
         private void updateMenuItemFromUser()
         {
             Console.Write("Enter your request: ");
@@ -71,7 +73,6 @@ namespace Ex04.Menus.Delegates
                 throw new FormatException("Invalid input, must be a number.");
             }
         }
-
 
         private bool isSubMenu(DelegateMenuItem nextMenuItem)
         {
