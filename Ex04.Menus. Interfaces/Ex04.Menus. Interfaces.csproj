@@ -37,7 +37,7 @@
   <ItemGroup>
     <Compile Include="IMenuObserver.cs" />
     <Compile Include="ActionMenuItem.cs" />
-    <Compile Include="InterfaceMenuManager.cs" />
+    <Compile Include="MainMenu.cs" />
     <Compile Include="MenuItem.cs" />
     <Compile Include="SubMenuItem.cs" />
   </ItemGroup>

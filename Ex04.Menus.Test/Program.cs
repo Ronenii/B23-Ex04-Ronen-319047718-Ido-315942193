@@ -21,22 +21,22 @@ namespace Ex04.Menus.Test
 
         }
 
-        public static SubMenuItem InitInterfaceMainMenu()
+        public static MainMenu InitInterfaceMainMenu()
         {
             // Init main menu
-            SubMenuItem mainMenu = new SubMenuItem("Iterface Main Menu", null);
+            MainMenu mainMenu = new MainMenu();
 
             // Init main menu option 1 (sub menu of show date and show time)
-            SubMenuItem subItemShowDateTime = new SubMenuItem("Show Date/Time", mainMenu);
-            ActionMenuItem actionItemShowDate = new ActionMenuItem("Show Date", subItemShowDateTime, new ShowDate());
-            ActionMenuItem actionItemShowTime = new ActionMenuItem("Show Time", subItemShowDateTime, new ShowTime());
+            SubMenuItem subItemShowDateTime = new SubMenuItem("Show Date/Time");
+            ActionMenuItem actionItemShowDate = new ActionMenuItem("Show Date", new ShowDate());
+            ActionMenuItem actionItemShowTime = new ActionMenuItem("Show Time", new ShowTime());
             subItemShowDateTime.AddMenuItem(actionItemShowDate);
             subItemShowDateTime.AddMenuItem(actionItemShowTime);
 
             // Init main menu option 2 (sub menu of show version and count spaces)
-            SubMenuItem subItemVersionSpaces = new SubMenuItem("Version and Spaces", mainMenu);
-            ActionMenuItem actionItemShowVersion = new ActionMenuItem("Show Version", subItemVersionSpaces, new ShowVersion());
-            ActionMenuItem actionItemCountSpaces = new ActionMenuItem("Count Spaces", subItemVersionSpaces, new CountSpaces());
+            SubMenuItem subItemVersionSpaces = new SubMenuItem("Version and Spaces");
+            ActionMenuItem actionItemShowVersion = new ActionMenuItem("Show Version", new ShowVersion());
+            ActionMenuItem actionItemCountSpaces = new ActionMenuItem("Count Spaces", new CountSpaces());
             subItemVersionSpaces.AddMenuItem(actionItemShowVersion);
             subItemVersionSpaces.AddMenuItem(actionItemCountSpaces);
 
@@ -69,7 +69,7 @@ namespace Ex04.Menus.Test
         {
             DelegateMenuItem main = new DelegateMenuItem("Main Menu", null, new List<DelegateMenuItem>());
             DelegateMenuItem delegateMenu = new DelegateMenuItem("Delegate Implematation", main, (path) => DelegateMenuManager.Run(InitDelegateMainMenu()));
-            DelegateMenuItem interfaceMenu = new DelegateMenuItem("Interface Implematation", main, (path) => InterfaceMenuManager.Run(InitInterfaceMainMenu()));
+            DelegateMenuItem interfaceMenu = new DelegateMenuItem("Interface Implematation", main, (path) => InitInterfaceMainMenu().Run());
             main.AddMenuItem(delegateMenu);
             main.AddMenuItem(interfaceMenu);
             return main;
