@@ -69,7 +69,7 @@ namespace Ex04.Menus.Test
         {
             DelegateMenuItem main = new DelegateMenuItem("Main Menu", null, new List<DelegateMenuItem>());
             DelegateMenuItem delegateMenu = new DelegateMenuItem("Delegate Implematation", main, (path) => DelegateMenuManager.Run(InitDelegateMainMenu()));
-            DelegateMenuItem interfaceMenu = new DelegateMenuItem("Interface Implematation", main, (path) => InterfaceMenuManager.Run(InitInterfaceMainMenu()));
+            DelegateMenuItem interfaceMenu = new DelegateMenuItem("Interface Implematation", main, (path) => InitInterfaceMainMenu().Run());
             main.AddMenuItem(delegateMenu);
             main.AddMenuItem(interfaceMenu);
             return main;
