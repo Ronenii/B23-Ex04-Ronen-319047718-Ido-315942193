@@ -9,68 +9,68 @@ namespace Ex04.Menus.Delegates
     {
         private readonly string r_Title;
 
-        private readonly DelegateMenuItem r_Parent;
-
-        private readonly string r_Path;
+        private DelegateMenuItem m_Parent;
 
         private List<DelegateMenuItem> m_SubMenuItems;
 
         private event Action<string> m_Action;
-
         public string Title { get => r_Title; }
-        public DelegateMenuItem Parent { get => r_Parent; }
         public List<DelegateMenuItem> SubMenuItems { get => m_SubMenuItems; }
         public Action<string> Action { get => m_Action; }
-        public string Path { get => r_Path; }
+        public DelegateMenuItem Parent { get => m_Parent; set => m_Parent = value; }
 
-        public DelegateMenuItem(string i_Title, DelegateMenuItem i_Parent, Action<string> i_Action)
+        public DelegateMenuItem(string i_Title, Action<string> i_Action)
         {
             r_Title = i_Title;
-            r_Parent = i_Parent;
             m_Action += i_Action;
             m_SubMenuItems = new List<DelegateMenuItem>();
-            r_Path = createCurrentPath();
         }
 
-        public DelegateMenuItem(string i_Title, DelegateMenuItem i_Parent, List<DelegateMenuItem> i_SubMenuItems)
+        public DelegateMenuItem(string i_Title)
         {
             r_Title = i_Title;
             m_Action = null;
-            r_Parent = i_Parent;
-            m_SubMenuItems = i_SubMenuItems;
-            r_Path = createCurrentPath();
+            m_SubMenuItems = new List<DelegateMenuItem>();
         }
 
+        //Print the path of the current menu
         private string createCurrentPath()
         {
             string menuPath = "";
             if (!isMainMenu())
             {
-                menuPath += $"{r_Parent.Path} -> ";
+                menuPath += $"{m_Parent.createCurrentPath()} -> ";
             }
+
             menuPath += r_Title;
             return menuPath;
         }
 
+        //Add new subMenu to the main menu
         public void AddMenuItem(DelegateMenuItem i_SubMenuItems)
         {
+            i_SubMenuItems.Parent = this;
             m_SubMenuItems.Add(i_SubMenuItems);
         }
 
+        //Print the menu
         public void Show()
         {
             Console.Clear();
-            Console.WriteLine(r_Path);
+            string path = createCurrentPath();
+            Console.WriteLine(path);
             Console.WriteLine();
             Console.WriteLine($"---- {Title} ----");
             for (int i = 1; i <= m_SubMenuItems.Count; i++)
             {
                 Console.WriteLine("{0}. {1}", i, m_SubMenuItems[i - 1].Title);
             }
+
             printLastOption();
             Console.WriteLine();
         }
 
+        // Prints out the last available option (op 0) based on if its a main menu or not
         private void printLastOption()
         {
             if (isMainMenu())
@@ -83,15 +83,16 @@ namespace Ex04.Menus.Delegates
             }
         }
 
+        //Validate there isn't parent page 
         private bool isMainMenu()
         {
-            return r_Parent == null;
+            return m_Parent == null;
         }
 
         public void Execute()
         {
             Console.Clear();
-            m_Action?.Invoke(r_Path);
+            m_Action?.Invoke(createCurrentPath());
         }
     }
 }

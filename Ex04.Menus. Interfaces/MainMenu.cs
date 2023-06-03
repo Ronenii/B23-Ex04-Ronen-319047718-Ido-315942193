@@ -51,7 +51,8 @@ namespace B23_Ex04_Ronen_319047718_Ido_315942193
                 {
                     throw new ArgumentException("Input not listed on menu.");
                 }
-                else if (userInput == k_GoBack)
+
+                if (userInput == k_GoBack)
                 {
                     goBack(ref i_CurrentMenuItem);
                 }

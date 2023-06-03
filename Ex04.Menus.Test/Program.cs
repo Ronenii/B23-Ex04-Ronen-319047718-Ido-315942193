@@ -14,11 +14,10 @@ namespace Ex04.Menus.Test
 
         private static void runMainManager()
         {
-            DelegateMenuManager.Run(InitMainMenu());
+            InitMainMenu().Run();
             Console.Clear();
             Console.WriteLine("Goodbye forever");
             Console.ReadKey();
-
         }
 
         public static MainMenu InitInterfaceMainMenu()
@@ -46,33 +45,47 @@ namespace Ex04.Menus.Test
             return mainMenu;
         }
 
-        public static DelegateMenuItem InitDelegateMainMenu()
+        public static DelegateMainMenu InitDelegateMainMenu()
         {
-            DelegateMenuItem main = new DelegateMenuItem("Delegate Main Menu", null, new List<DelegateMenuItem>());
-            DelegateMenuItem timeDateShow = new DelegateMenuItem("Show Date/Time", main, new List<DelegateMenuItem>());
-            DelegateMenuItem timeShow = new DelegateMenuItem("Show Time", timeDateShow, (path) => DelegateActions.ShowTime(path));
-            DelegateMenuItem dateShow = new DelegateMenuItem("Show Date", timeDateShow, (path) => DelegateActions.ShowDate(path));
+            // Init main menu
+            DelegateMainMenu mainMenu = new DelegateMainMenu();
+
+            // Init main menu option 1 (sub menu of show date and show time)
+            DelegateMenuItem timeDateShow = new DelegateMenuItem("Show Date/Time");
+            DelegateMenuItem timeShow = new DelegateMenuItem("Show Time", (path) => DelegateActions.ShowTime(path));
+            DelegateMenuItem dateShow = new DelegateMenuItem("Show Date", (path) => DelegateActions.ShowDate(path));
             timeDateShow.AddMenuItem(dateShow);
             timeDateShow.AddMenuItem(timeShow);
-            DelegateMenuItem spaceAndVersionShow = new DelegateMenuItem("Version and Spaces", main, new List<DelegateMenuItem>());
-            DelegateMenuItem versionShow = new DelegateMenuItem("Show Version", spaceAndVersionShow, (path) => DelegateActions.ShowVersion(path));
-            DelegateMenuItem spacesShow = new DelegateMenuItem("Count Spaces", spaceAndVersionShow, (path) => DelegateActions.CountSpaces(path));
+
+            // Init main menu option 2 (sub menu of show version and count spaces)
+            DelegateMenuItem spaceAndVersionShow = new DelegateMenuItem("Version and Spaces");
+            DelegateMenuItem versionShow = new DelegateMenuItem("Show Version", (path) => DelegateActions.ShowVersion(path));
+            DelegateMenuItem spacesShow = new DelegateMenuItem("Count Spaces", (path) => DelegateActions.CountSpaces(path));
             spaceAndVersionShow.AddMenuItem(versionShow);
             spaceAndVersionShow.AddMenuItem(spacesShow);
-            main.AddMenuItem(timeDateShow);
-            main.AddMenuItem(spaceAndVersionShow);
-            return main;
+
+            // Adding the sub menus to the main menu
+            mainMenu.AddMenuItem(timeDateShow);
+            mainMenu.AddMenuItem(spaceAndVersionShow);
+            return mainMenu;
         }
 
 
-        public static DelegateMenuItem InitMainMenu()
+        public static DelegateMainMenu InitMainMenu()
         {
-            DelegateMenuItem main = new DelegateMenuItem("Main Menu", null, new List<DelegateMenuItem>());
-            DelegateMenuItem delegateMenu = new DelegateMenuItem("Delegate Implematation", main, (path) => DelegateMenuManager.Run(InitDelegateMainMenu()));
-            DelegateMenuItem interfaceMenu = new DelegateMenuItem("Interface Implematation", main, (path) => InitInterfaceMainMenu().Run());
-            main.AddMenuItem(delegateMenu);
-            main.AddMenuItem(interfaceMenu);
-            return main;
+            // Init main menu
+            DelegateMainMenu mainMenu = new DelegateMainMenu();
+
+            // Init main menu option 1 (Delegate implemetation menu)
+            DelegateMenuItem delegateMenu = new DelegateMenuItem("Delegate Implematation", (path) => InitDelegateMainMenu().Run());
+
+            // Init main menu option 2 (Interface implemetation)
+            DelegateMenuItem interfaceMenu = new DelegateMenuItem("Interface Implematation", (path) => InitInterfaceMainMenu().Run());
+
+            // Adding the sub menus to the main menu
+            mainMenu.AddMenuItem(delegateMenu);
+            mainMenu.AddMenuItem(interfaceMenu);
+            return mainMenu;
         }
     }
 }
