@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Ex04.Menus.Test
 {
-    public static class DelegateActions<T>
+    public static class DelegateActions
     {
-        public static void ShowTime(T i_Path)
+        public static void ShowTime(string i_Path)
         {
             Console.WriteLine(i_Path);
             Console.WriteLine();
@@ -16,7 +16,7 @@ namespace Ex04.Menus.Test
             holdForUserKeyPress();
         }
 
-        public static void ShowDate(T i_Path)
+        public static void ShowDate(string i_Path)
         {
             Console.WriteLine(i_Path);
             Console.WriteLine();
@@ -24,7 +24,7 @@ namespace Ex04.Menus.Test
             holdForUserKeyPress();
         }
 
-        public static void ShowVersion(T i_Path)
+        public static void ShowVersion(string i_Path)
         {
             Console.WriteLine(i_Path);
             Console.WriteLine();
@@ -32,7 +32,7 @@ namespace Ex04.Menus.Test
             holdForUserKeyPress();
         }
 
-        public static void CountSpaces(T i_Path)
+        public static void CountSpaces(string i_Path)
         {
             Console.WriteLine(i_Path);
             Console.WriteLine();
