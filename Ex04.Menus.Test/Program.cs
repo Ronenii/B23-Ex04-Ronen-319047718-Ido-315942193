@@ -18,7 +18,6 @@ namespace Ex04.Menus.Test
             Console.Clear();
             Console.WriteLine("Goodbye forever");
             Console.ReadKey();
-
         }
 
         public static MainMenu InitInterfaceMainMenu()

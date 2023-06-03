@@ -40,6 +40,7 @@ namespace Ex04.Menus.Delegates
             {
                 menuPath += $"{m_Parent.createCurrentPath()} -> ";
             }
+
             menuPath += r_Title;
             return menuPath;
         }
@@ -61,6 +62,7 @@ namespace Ex04.Menus.Delegates
             {
                 Console.WriteLine("{0}. {1}", i, m_SubMenuItems[i - 1].Title);
             }
+
             printLastOption();
             Console.WriteLine();
         }

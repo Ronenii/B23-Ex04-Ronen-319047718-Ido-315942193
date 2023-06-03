@@ -32,6 +32,7 @@ namespace Ex04.Menus.Delegates
                 {
                     printErrorMessage(e);
                 }
+
                 if (m_MainMenuItem != null)
                 {
                     m_MainMenuItem.Execute();
@@ -44,11 +45,11 @@ namespace Ex04.Menus.Delegates
             Console.Write("Enter your request: ");
             if (int.TryParse(Console.ReadLine(), out int userInput))
             {
-
                 if (!isInputInRange(userInput))
                 {
                     throw new ArgumentException("Input not listed on menu.");
                 }
+
                 if (isBackExitChoice(userInput))
                 {
                     goBack();
@@ -60,6 +61,7 @@ namespace Ex04.Menus.Delegates
                     {
                         m_MainMenuItem = nextMenuItem;
                     }
+
                     nextMenuItem.Execute();
                 }
             }
@@ -76,14 +78,13 @@ namespace Ex04.Menus.Delegates
             return nextMenuItem.Action == null;
         }
 
-        private bool isBackExitChoice(int userInput)
+        private bool isBackExitChoice(int i_UserInput)
         {
-            return userInput == 0;
+            return i_UserInput == 0;
         }
 
         private bool isInputInRange(int i_Input)
         {
-
             return (i_Input >= 0 && i_Input <= m_MainMenuItem.SubMenuItems.Count);
         }
 

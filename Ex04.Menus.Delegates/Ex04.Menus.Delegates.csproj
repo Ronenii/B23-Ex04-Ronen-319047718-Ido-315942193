@@ -36,7 +36,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="DelegateMainMenu.cs" />
-    <Compile Include="DelegateMenuManager.cs" />
     <Compile Include="DelegateActions.cs" />
     <Compile Include="DelegateMenuItem.cs" />
   </ItemGroup>

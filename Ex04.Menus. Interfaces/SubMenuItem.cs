@@ -73,7 +73,6 @@ namespace B23_Ex04_Ronen_319047718_Ido_315942193
 
         public void AddMenuItem(MenuItem i_MenuItem)
         {
-
             i_MenuItem.Parent = this;
             m_SubMenuItems.Add(i_MenuItem);
             m_NumOfSubItems++;
